@@ -20,7 +20,7 @@ const saveToLocalStorage = () => {
 // Retrieve the stored input on app load
 onMounted(() => {
   const storedData = localStorage.getItem('data_s0')
-  if (storedData) {
+  if (storedData && storedData.trim()) { // Ensure it's not empty or just spaces
     data_s0.value = storedData
   }
 })
