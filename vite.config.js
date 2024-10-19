@@ -54,4 +54,5 @@ export default defineConfig({
       },
     }),
   ],
+  base: "/knote_pwa/",
 });
