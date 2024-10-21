@@ -1,11 +1,24 @@
-import { createApp } from 'vue';
-import './style.css';
-import App from './App.vue';
-import { registerSW } from 'virtual:pwa-register'; // Import the service worker registration
+import { createApp } from 'vue'
+import App from './App.vue'
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles' // Import Vuetify styles
+import '@mdi/font/css/materialdesignicons.css' // Import MDI styles
+import { registerSW } from 'virtual:pwa-register' // For service worker
 
-const app = createApp(App);
 
-// Register the service worker
-registerSW();
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-app.mount('#app');
+const vuetify = createVuetify({
+  components,
+  directives,
+  icons: {
+    iconfont: 'mdi', // Specify MDI as the icon font
+  },
+})
+
+const app = createApp(App)
+
+registerSW()
+app.use(vuetify)
+app.mount('#app')

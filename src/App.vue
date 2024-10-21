@@ -1,36 +1,43 @@
 <template>
-  <div>
-    <h1>Simple Notes App</h1>
-    <input v-model="newNote" placeholder="Type a new note..." @keydown.enter="addNote">
-    <button @click="addNote">Add Note</button>
+  <v-container>
+    <v-row align="center" justify="space-between" class="ml-5 mr-5 mb-1">
+      <h1>kNote</h1>
+      <v-btn icon @click="addNote">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-row>
 
-    <ul>
-      <li v-for="(note, index) in notes" :key="index">
-        <input v-model="note.text" />
-        <button @click="deleteNote(index)">Delete</button>
-      </li>
-    </ul>
-  </div>
+    <v-list lines="one">   
+      <v-list-item
+        v-for="(note, index) in notes"
+        :key="index"
+      >
+      <v-row align="center" justify="space-between"  class="mr-1">
+      <v-text-field v-model="note.text" class="mr-2" placeholder="new note" outlined>
+      </v-text-field>
+      <v-btn icon @click="deleteNote(index)">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+      </v-row>
+    </v-list-item>
+    </v-list>
+  </v-container>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 // Reactive variables
-const notes = ref([]) // Array to store notes
-const newNote = ref('') // To hold input for new note
+const notes = ref([])
 
 // Function to add a note
 const addNote = () => {
-  if (newNote.value.trim()) { // Ensure input isn't empty
-    notes.value.push({ text: newNote.value }) // Add note to array
-    newNote.value = '' // Clear the input field
-  }
+  notes.value.push({ text: '' });
 }
 
 // Function to delete a note
 const deleteNote = (index) => {
-  notes.value.splice(index, 1) // Remove note from array
+  notes.value.splice(index, 1)
 }
 
 // Function to save notes to localStorage
@@ -38,19 +45,19 @@ const saveToLocalStorage = () => {
   localStorage.setItem('notes', JSON.stringify(notes.value))
 }
 
+// Save data when the app becomes inactive
 const saveToLocalStorageIfHidden = () => {
-    if (document.visibilityState === 'hidden') {
-      saveToLocalStorage()
-    }
+  if (document.visibilityState === 'hidden') {
+    saveToLocalStorage()
   }
+}
 
-// Retrieve stored notes when the app loads
+// Retrieve stored notes
 onMounted(() => {
   const storedNotes = localStorage.getItem('notes')
   if (storedNotes) {
-    notes.value = JSON.parse(storedNotes) // Load notes from localStorage
+    notes.value = JSON.parse(storedNotes)
   }
-
   document.addEventListener('visibilitychange', saveToLocalStorageIfHidden)
   window.addEventListener('beforeunload', saveToLocalStorage)
 })
@@ -59,9 +66,6 @@ onBeforeUnmount(() => {
   document.removeEventListener('visibilitychange', saveToLocalStorageIfHidden)
   window.removeEventListener('beforeunload', saveToLocalStorage)
 })
-
 </script>
 
-<style>
-/* Add any custom styles here */
-</style>
+
