@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row align="center" justify="space-between" class="ml-5 mr-5 mb-1">
+    <v-row align="center" justify="space-between" class="mb-1">
       <h1>kNote</h1>
       <v-btn icon @click="addNote">
         <v-icon>mdi-plus</v-icon>
@@ -9,13 +9,13 @@
 
     <v-list lines="one">   
       <v-list-item
-        v-for="(note, index) in notes"
+        v-for="(note, index) in reversedNotes"
         :key="index"
       >
-      <v-row align="center" justify="space-between"  class="mr-1">
+      <v-row align="center" justify="space-between">
       <v-text-field v-model="note.text" class="mr-2" placeholder="new note" outlined>
       </v-text-field>
-      <v-btn icon @click="deleteNote(index)">
+      <v-btn icon @click="deleteNote(index)" class="mr-4">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
       </v-row>
@@ -25,10 +25,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 
 // Reactive variables
 const notes = ref([])
+
+const reversedNotes = computed(() => {
+      return notes.value.slice().reverse(); // Create a shallow copy and reverse it
+    });
 
 // Function to add a note
 const addNote = () => {
