@@ -13,9 +13,12 @@
         :key="index"
       >
       <v-row align="center" justify="space-between">
-      <v-text-field v-model="note.text" class="mr-2" placeholder="new note" outlined>
+      <v-btn icon @click="toggleNoteDone(reversedIndex(index))" class="ml-4 mr-2">
+        <v-icon>mdi-check-circle-outline</v-icon>
+      </v-btn>
+      <v-text-field v-model="note.text" class="mr-2" placeholder="new note" :class="{ 'text-decoration-line-through': note.done }">
       </v-text-field>
-      <v-btn icon @click="deleteNote(index)" class="mr-4">
+      <v-btn icon @click="deleteNote(reversedIndex(index))" class="mr-4">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
       </v-row>
@@ -34,9 +37,17 @@ const reversedNotes = computed(() => {
       return notes.value.slice().reverse(); // Create a shallow copy and reverse it
     });
 
+const reversedIndex = (index) => {
+  return notes.value.length - 1 - index;
+};
+
 // Function to add a note
 const addNote = () => {
-  notes.value.push({ text: '' });
+  notes.value.push({ text: '' , done: false});
+}
+
+const toggleNoteDone = (index) => {
+  notes.value[index].done = !notes.value[index].done; // Toggle done state
 }
 
 // Function to delete a note
@@ -72,4 +83,10 @@ onBeforeUnmount(() => {
 })
 </script>
 
+
+<style scoped>
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+</style>
 
