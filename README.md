@@ -46,6 +46,12 @@ npm run dev
 npm run build
 ```
 
+5. Deploy to github pages:
+
+```bash
+npm run deploy
+```
+
 ## Usage
 
 Once the app is running, you can:
