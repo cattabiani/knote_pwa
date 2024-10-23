@@ -12,13 +12,18 @@
         v-for="(note, index) in reversedNotes"
         :key="index"
       >
-      <v-row align="center" justify="space-between">
-      <v-btn icon @click="toggleNoteDone(reversedIndex(index))" class="ml-4 mr-2">
+      <v-row align="center" justify="space-between" class="mr-2 ml-2">
+      <v-btn icon @click="toggleNoteDone(reversedIndex(index))">
         <v-icon>mdi-check-circle-outline</v-icon>
       </v-btn>
-      <v-text-field v-model="note.text" class="mr-2" placeholder="new note" :class="{ 'text-decoration-line-through': note.done }">
+      <v-text-field v-model="note.text" 
+      align="center"
+      placeholder="new note" 
+      :class="{ 'text-decoration-line-through': note.done }" 
+      variant="outlined"
+      class="ml-2 mr-2 mt-5">
       </v-text-field>
-      <v-btn icon @click="deleteNote(reversedIndex(index))" class="mr-4">
+      <v-btn icon @click="deleteNote(reversedIndex(index))">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
       </v-row>
@@ -84,7 +89,7 @@ onBeforeUnmount(() => {
 </script>
 
 
-<style scoped>
+<style>
 .text-decoration-line-through {
   text-decoration: line-through;
 }
