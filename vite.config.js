@@ -8,8 +8,8 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "kNotes",
-        short_name: "kNotes",
+        name: "kNote",
+        short_name: "kNote",
         description: "A simple PWA app to take notes",
         theme_color: "#ffffff",
         icons: [
