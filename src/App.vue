@@ -13,15 +13,16 @@
           <v-btn icon @click="toggleNoteDone(reversedIndex(index))">
             <v-icon>mdi-check-circle-outline</v-icon>
           </v-btn>
-          <v-text-field
+          <v-textarea
             v-model="note.text"
             align="center"
             placeholder="new note"
             :class="{ 'text-decoration-line-through': note.done }"
-            variant="outlined"
+            rows="1"
+            auto-grow
+            variant="solo"
             class="ml-2 mr-2 mt-5"
-          >
-          </v-text-field>
+          />
           <v-btn icon @click="deleteNote(reversedIndex(index))">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
